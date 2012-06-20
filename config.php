@@ -1,5 +1,4 @@
 <?php
-
 /* Dabase Info */
 $user = 'root';
 $password = '';

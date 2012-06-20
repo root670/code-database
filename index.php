@@ -1,34 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Code Database</title>
+	<link rel=stylesheet type='text/css' href='style.css' />
+</head>
+<body>
 <?php
 include('config.php');
 
-echo "<!DOCTYPE html>
-<html>
-<head>
-<title>Code Database</title>
-<style type='text/css'>
-body
-{
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-td, th {
-	vertical-align: top;
-}
-
-.code {
-	font-family: monospace;
-	font-size: larger;
-}
-</style>
-</head>
-<body>
-";
-
-$user = 'root';
-$password = '';
-$database = 'codedb';
-
-if (!isset($_GET['gameid']))
+if (!isset($_GET['gameid'])) // Show list of games
 {
 	echo "<h1>Code Database</h1>";
 	mysql_connect('localhost', $user, $password);
@@ -53,7 +33,7 @@ if (!isset($_GET['gameid']))
 		echo "<br /><a href='add.php'>*Add a game*</a>";
 }
 
-else if (isset($_GET['gameid'])) // Go here after selecting a game from the list
+else if (isset($_GET['gameid'])) // Show codes for specific game
 {
 	echo "<a href='./'>&larr;Game List</a>";
 	echo "<h1>Codes for " . $_GET['title'] . "</h1>";
@@ -85,31 +65,31 @@ else if (isset($_GET['gameid'])) // Go here after selecting a game from the list
 	echo ("\n</table>");
 	if ($adminMode)
 	{
-	echo ("<h3>Add a code for this game</h3>
-	<form action='add.php' method=post>
-		<input hidden=true name=gameid value=" . mysql_real_escape_string($_GET['gameid']) . " />
-		<table>
-			<tr>
-				<td>Code Name</td>
-				<td><input type=text name='codeName' /></td>
-			</tr>
-			<tr>
-				<td>Code</td>
-				<td><textarea name='code' rows=3 cols=18></textarea></td>
-			</tr>
-			<tr>
-				<td>Note (optional)</td>
-				<td><input type=text name='note' /></td>
-			</tr>
-			<tr>
-				<td>Credit (optional)</td>
-				<td><input type=text name='credit' /></td>
-			</tr>
-			<tr>
-				<td colspan=2><input type=submit value='Add' style='width: 100%;' /></td>
-			</tr>
-		</table>
-	</form>\n");
+		echo ("<h3>Add a code for this game</h3>
+		<form action='add.php' method=post>
+			<input hidden=true name=gameid value=" . mysql_real_escape_string($_GET['gameid']) . " />
+			<table>
+				<tr>
+					<td>Code Name</td>
+					<td><input type=text name='codeName' /></td>
+				</tr>
+				<tr>
+					<td>Code</td>
+					<td><textarea name='code' rows=3 cols=18></textarea></td>
+				</tr>
+				<tr>
+					<td>Note (optional)</td>
+					<td><input type=text name='note' /></td>
+				</tr>
+				<tr>
+					<td>Credit (optional)</td>
+					<td><input type=text name='credit' /></td>
+				</tr>
+				<tr>
+					<td colspan=2><input type=submit value='Add' style='width: 100%;' /></td>
+				</tr>
+			</table>
+		</form>\n");
 	}
 }
 ?>

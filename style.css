@@ -1,0 +1,13 @@
+body
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+td, th {
+	vertical-align: top;
+}
+
+.code {
+	font-family: monospace;
+	font-size: larger;
+}

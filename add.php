@@ -2,12 +2,7 @@
 <html>
 <head>
 	<title>Add</title>
-	<style type='text/css'>
-	body
-	{
-		font-family: Verdana, Arial, Helvetica, sans-serif;
-	}
-	</style>
+	<link rel=stylesheet type='text/css' href='style.css' />
 </head>
 <body>
 <a href='./'>&larr;Game List</a>
@@ -42,7 +37,7 @@ if($adminMode)
 				break;
 		}
 		
-		if($valid == true)
+		if($valid == true) // Name was entered and system is valid
 		{
 			
 			echo "<h1>Code Database</h1>";
@@ -52,6 +47,7 @@ if($adminMode)
 			echo "Added the game <em>$name</em> to the database";
 		}
 	}
+	// TODO: put the following in a seperate file
 	else if (isset($_POST['gameid'])) // Add a code to a game
 	{
 		echo "<h1>Adding a code...</h1>";
