@@ -39,11 +39,10 @@ if($adminMode)
 		
 		if($valid == true) // Name was entered and system is valid
 		{
-			
 			echo "<h1>Code Database</h1>";
 			mysql_connect('localhost', $user, $password);
 			mysql_select_db($database) or die("Error selecting database!");
-			mysql_query("INSERT INTO games (title, system) VALUES ('$name', '$system');");
+			mysql_query("INSERT INTO games (title, system) VALUES (\"" . htmlspecialchars($name) . "\", '$system');");
 			echo "Added the game <em>$name</em> to the database";
 		}
 	}
@@ -62,7 +61,7 @@ if($adminMode)
 			die("ERROR: You didn't enter all the required information.");
 		}
 		
-		mysql_connect('localhost', $user, $password);
+		mysql_connect($host, $user, $password);
 		mysql_select_db($database) or die("Error selecting database!");
 		mysql_query("INSERT INTO codes (game_id, name, code, note, credit) VALUES ('$gameId', '$codeName', '$code', '$note', '$credit');");
 		die("<script language='javascript'>window.history.back(-1); </script>Added the code <em>$codeName</em> to the database.");
