@@ -5,61 +5,86 @@
 	<link rel=stylesheet type='text/css' href='style.css' />
 </head>
 <body>
+<div class='main'>
 <?php
 include('config.php');
 
 if (!isset($_GET['gameid'])) // Show list of games
 {
-	echo "<h1>Code Database</h1>";
-	mysql_connect('localhost', $user, $password);
+	echo "<h1 style='text-align: center'>Code Database</h1>";
+	$connection = mysql_connect($host, $user, $password);
 	mysql_select_db($database) or die("Error selecting database!");
 
 	$result = mysql_query("SELECT * FROM games ORDER BY title");
 
 	if(!$result) die("No games in database!");
-	echo "<p>There are <strong>" . mysql_num_rows($result) . "</strong> games in the database.</p>";
-
-	$curRow = 0;
+	echo "<p>There are <strong>" . mysql_num_rows($result) . "</strong> games in the database. All codes are in RAW format unless otherwise noted. All of these codes will work with CodeBreaker v7.1+ without any changes.</p>\n";
+	echo "<table border=1>";
 
 	while($row = mysql_fetch_array($result))
 	{
-		$curRow++;
 		$gameTitle = $row['title'];
-		echo "<a href=\"?gameid=" . $row['id'] . "&title=" . html_entity_decode($gameTitle) . "\">";
-		echo "$curRow. " . $gameTitle . " (" . $row['system'] . ")" . "<br />";
-		echo "</a>";
+		echo "<tr><td><a href=\"?gameid=" . $row['id'] . "&amp;title=" . urlencode(htmlspecialchars($gameTitle)) . "\">";
+		echo $gameTitle . "</a></td><td>" . $row['system'] . "</td>";
+		echo "<td>" . $row['numOfCodes'] . "</td></tr>";
 	}
+	echo "</table>";
+	
 	if($adminMode)
 		echo "<br /><a href='add.php'>*Add a game*</a>";
+		
+	mysql_close($connection);
 }
 
 else if (isset($_GET['gameid'])) // Show codes for specific game
 {
 	echo "<a href='./'>&larr;Game List</a>";
-	echo "<h1>Codes for " . $_GET['title'] . "</h1>";
-	mysql_connect('localhost', $user, $password);
+	echo "<h2>" . $_GET['title'] . "</h2>";
+	$connection = mysql_connect($host, $user, $password);
 	mysql_select_db($database) or die("Error selecting database!");
 	
 	$query = 'SELECT * FROM codes WHERE game_id = "' . mysql_real_escape_string($_GET['gameid']) . '"'; // Only get codes with a specific gameid
 	$result = mysql_query($query);
 	
 	$curRow = 0;
+	if($showNumbers)
+		echo("\n\n<table border='1px'>\n<th></th><th>Name</th><th>Code</th>");
+	else
+		echo("\n\n<table border='1px'>\n<th>Name</th><th>Code</th>");
 	
-	echo("\n\n<table border='1px'>\n<th colspan=2>Name</th><th>Code</th><th>Note</th><th>Credit</th>");
+	if($showNotes)
+		echo("<th>Note</th>");
+	if($showCredit)
+		echo("<th>Credit</th>");
+		
 	while($row = mysql_fetch_array($result))
 	{
 		$curRow++;
 		echo "\n<tr>";
 		
-		if (strlen($row['credit']) <= 0)
+		if($row['code'] != "[header]")
 		{
-			$credit = "Unknown";
-		} else
-		{
-			$credit = $row['credit'];
+			if($showCredit)
+			{
+				if (strlen($row['credit']) <= 0)
+					$credit = "Unknown";
+				else
+					$credit = $row['credit'];
+			}
+			
+			if($showNumbers)
+				echo "<td>$curRow</td>";
+			echo "<td>" . $row['name'] . "</td><td class=code>" . nl2br($row['code']) . "</td>"; // nl2r converts NULL characters to line breaks
+			if($showNotes)
+				echo "<td>" . nl2br($row['note']) . "</td>";
+			if($showCredit)
+				echo "<td>" . $credit . "</td>";
 		}
-		
-		echo "<td>$curRow</td><td>" . $row['name'] . "</td><td class=code>" . nl2br($row['code']) . "</td><td>" . nl2br($row['note']) . "</td><td>" . $credit . "</td>"; //nl2r converts NULL characters to line breaks
+		else
+		{
+			echo "<td class=codeHeader colspan=5>" . $row['name'] . "</td>";
+			$curRow--;
+		}
 		echo "</tr>";
 	}
 	echo ("\n</table>");
@@ -68,7 +93,7 @@ else if (isset($_GET['gameid'])) // Show codes for specific game
 		echo ("<h3>Add a code for this game</h3>
 		<form action='add.php' method=post>
 			<input hidden=true name=gameid value=" . mysql_real_escape_string($_GET['gameid']) . " />
-			<table>
+			<table id=addGame>
 				<tr>
 					<td>Code Name</td>
 					<td><input type=text name='codeName' /></td>
@@ -91,7 +116,9 @@ else if (isset($_GET['gameid'])) // Show codes for specific game
 			</table>
 		</form>\n");
 	}
+	mysql_close($connection);
 }
 ?>
+</div>
 </body>
 </html>

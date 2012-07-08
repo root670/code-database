@@ -5,9 +5,42 @@ body
 
 td, th {
 	vertical-align: top;
+	padding: 2px;
+}
+
+th {
+	background-color: #eee;
+}
+
+table {
+	width: 100%;
+	border-style: solid;
+	border-collapse: collapse;
+}
+
+#addGame {
+	width: 25%;
+	margin: 0px auto;
 }
 
 .code {
-	font-family: monospace;
-	font-size: larger;
+	font-family: 'courier new', courier, monospace;
+	font-size: 12;
+}
+
+.codeHeader {
+	font-weight: bold;
+	text-align: center;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background-color: #eee;
+}
+
+.main {
+	margin: 0px auto;
+	width: 65%;
+}
+
+a {
+	text-decoration: none;
 }
