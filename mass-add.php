@@ -68,7 +68,7 @@ if($adminMode)
 {
 	if (isset($_POST['gameid']) & isset($_POST['cheats']))
 	{
-		$connection = mysql_connect('localhost', $user, $password);
+		$connection = mysql_connect($host, $user, $password);
 		
 		$gameId = mysql_real_escape_string($_POST['gameid']);
 		$cheats = mysql_real_escape_string($_POST['cheats']);
