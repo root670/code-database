@@ -142,6 +142,10 @@ if($adminMode)
 		mysql_close($connection);
 	}
 }
+else
+{
+	echo "<br />ERROR: adminMode is off. You shouldn't be here :(";
+}
 ?>
 </div>
 </body>
