@@ -23,7 +23,12 @@ etc. Make sure that each cheat is seperated by a blank line.<br />
 			<td>Game ID</td>
 		</tr>
 		<tr>
-			<td><input type=text name=gameid /></td>
+		<?php
+		if( isset($_GET['gameid']))
+			echo "<td><input type=text name=gameid value=" . mysql_real_escape_string($_GET['gameid']) ." /></td>";
+		else
+			echo "<td><input type=text name=gameid /></td>";
+		?>
 		</tr>
 		<tr>
 			<td>Cheats</td>

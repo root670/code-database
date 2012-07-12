@@ -91,6 +91,7 @@ else if (isset($_GET['gameid'])) // Show codes for specific game
 	if ($adminMode)
 	{
 		echo ("<h3>Add a code for this game</h3>
+		<p>To add multiple codes to this game, <a href='mass-add.php?gameid=" . mysql_real_escape_string($_GET['gameid']) . "'>click here</a>.</p>
 		<form action='add.php' method=post>
 			<input hidden=true name=gameid value=" . mysql_real_escape_string($_GET['gameid']) . " />
 			<table id=addGame>
