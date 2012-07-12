@@ -18,7 +18,7 @@ if (!isset($_GET['gameid'])) // Show list of games
 	$result = mysql_query("SELECT * FROM games ORDER BY title");
 
 	if(!$result) die("No games in database!");
-	echo "<p>There are <strong>" . mysql_num_rows($result) . "</strong> games in the database. All codes are in RAW format unless otherwise noted. All of these codes will work with CodeBreaker v7.1+ without any changes.</p>\n";
+	echo "<p>There are <strong>" . mysql_num_rows($result) . "</strong> games in the database. All codes are in RAW format unless otherwise noted. All of these codes should work with CodeBreaker v7.1+ without any changes.</p>\n";
 	echo "<table border=1>";
 
 	while($row = mysql_fetch_array($result))
