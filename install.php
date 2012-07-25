@@ -40,7 +40,7 @@ if( isset($_GET['install']))
 	mysql_query($gamesTable) or die("An error occured.");
 	mysql_query($codesTable) or die("An error occured.");
 	
-	echo("<p>Database has been installed. Click <a href=index.php>here</a> to go to the frot page.</p>");
+	echo("<p>Database has been installed. Click <a href=index.php>here</a> to go to the front page.</p>");
 }
 else
 {
