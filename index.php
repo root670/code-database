@@ -39,7 +39,7 @@ if (!isset($_GET['gameid'])) // Show list of games
 else if (isset($_GET['gameid'])) // Show codes for specific game
 {
 	echo "<a href='./'>&larr;Game List</a>";
-	echo "<h2>" . $_GET['title'] . "</h2>";
+	echo "<h2 style='text-align: center'>" . $_GET['title'] . "</h2>";
 	$connection = mysql_connect($host, $user, $password);
 	mysql_select_db($database) or die("Error selecting database!");
 	
