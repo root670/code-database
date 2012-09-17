@@ -28,6 +28,9 @@ if($adminMode)
 			case 'PlayStation 2':
 				$system = "PS2";
 				break;
+			case 'PlayStation':
+				$system = "PS1";
+				break;
 			case 'Dreamcast':
 				$system = "DC";
 				break;
@@ -72,6 +75,7 @@ echo "<h1>Add a Game</h1>
 		System: 
 		<select name=system>
 			<option>PlayStation 2</option>
+			<option>PlayStation</option>
 			<option>DC</option>
 		</select><br />
 		<input type=submit />

@@ -19,19 +19,24 @@ if (!isset($_GET['gameid'])) // Show list of games
 
 	if(!$result) die("No games in database!");
 	echo "<p>There are <strong>" . mysql_num_rows($result) . "</strong> games in the database. All codes are in RAW format unless otherwise noted. All of these codes should work with CodeBreaker v7.1+ without any changes.</p>\n";
+	
+	if($adminMode)
+	{
+		echo "<p class=warning>WARNING: Admin mode is enabled!</p>";
+		echo "<p><a href='add.php'>*Add a game*</a></p>";
+	}
+	
 	echo "<table border=1>";
 
 	while($row = mysql_fetch_array($result))
 	{
 		$gameTitle = $row['title'];
 		echo "<tr><td><a href=\"?gameid=" . $row['id'] . "&amp;title=" . urlencode(htmlspecialchars($gameTitle)) . "\">";
-		echo $gameTitle . "</a></td><td>" . $row['system'] . "</td>";
-		echo "<td>" . $row['numOfCodes'] . "</td></tr>";
+		echo str_replace('&', '&amp;', $gameTitle) . "</a></td>";
+		echo "<td>" . $row['system'] . "</td>";
+		echo "<td>" . $row['numOfCodes'] . "</td></tr>\n";
 	}
 	echo "</table>";
-	
-	if($adminMode)
-		echo "<br /><a href='add.php'>*Add a game*</a>";
 		
 	mysql_close($connection);
 }

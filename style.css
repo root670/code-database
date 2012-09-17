@@ -3,6 +3,10 @@ body
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
+a {
+	text-decoration: none;
+}
+
 td, th {
 	vertical-align: top;
 	padding: 2px;
@@ -41,6 +45,10 @@ table {
 	width: 65%;
 }
 
-a {
-	text-decoration: none;
+.warning {
+	background-color: #d00;
+	font-weight: bold;
+	font-size: 12;
+	text-align: center;
+	color: white;
 }
