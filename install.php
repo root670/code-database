@@ -34,6 +34,8 @@ if( isset($_GET['install']))
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=168001 ;';
 
 	$connection = mysql_connect($host, $user, $password);
+	if($connection)
+		echo "Account info OK!\n";
 	mysql_select_db($database) or die("Error selecting database! Does it exist?");
 	
 	mysql_query($init) or die("An error occured.");
